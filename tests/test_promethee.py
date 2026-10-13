@@ -114,3 +114,12 @@ def test_uses_reports_the_parameters_of_each_function():
     assert [pm.uses(k, "q") for k in C.KINDS] == [False, True, False, True, True, False]
     assert [pm.uses(k, "p") for k in C.KINDS] == [False, False, True, True, True, False]
     assert [pm.uses(k, "s") for k in C.KINDS] == [False, False, False, False, False, True]
+
+
+def test_flows_for_exactly_two_alternatives():
+    """Mutationstest: Der Zweig n < 2 darf bei genau zwei Alternativen nicht greifen (Division durch n - 1 = 1)."""
+    pi = np.array([[0.0, 0.7], [0.2, 0.0]])
+    plus, minus, phi = pm.flows(pi)
+    assert plus.tolist() == [0.7, 0.2] and minus.tolist() == [0.2, 0.7] and phi == pytest.approx([0.5, -0.5])
+    N = np.array([[1.0, 0.0], [0.0, 1.0]])
+    assert pm.flows(pm.preference_degrees(N, np.array([0.6, 0.4]), "usual"))[2] == pytest.approx([0.2, -0.2])
