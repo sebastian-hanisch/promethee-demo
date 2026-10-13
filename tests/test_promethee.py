@@ -89,6 +89,18 @@ def test_promethee_one_orders_pairs_that_both_flows_agree_on():
     assert P[0, 1] and P[0, 2] and P[2, 1] and not P[1, 0] and not I.any() and not R.any()
 
 
+def test_promethee_one_with_one_flow_exactly_tied():
+    """Gleicher Einfluss Phi- bei größerem Phi+: a übertrifft b (Gleichheit zählt als 'höchstens'), das Paar ist NICHT unvergleichbar.
+    Fehlt die Toleranz auf der richtigen Seite (`<= b - eps` statt `<= b + eps`), fiele ein exakter Gleichstand durch und das Paar wäre unvergleichbar."""
+    plus = np.array([0.6, 0.2])
+    minus = np.array([0.3, 0.3])
+    P, I, R = pm.promethee_one(plus, minus)
+    assert P.astype(int).tolist() == [[0, 1], [0, 0]]
+    assert not I.any() and not R.any()
+    P, I, R = pm.promethee_one(np.array([0.4, 0.4]), np.array([0.1, 0.5]))       # Gleichstand in Phi+, Phi- verschieden
+    assert P.astype(int).tolist() == [[0, 1], [0, 0]] and not I.any() and not R.any()
+
+
 def test_flows_for_a_single_alternative_are_zero():
     plus, minus, phi = pm.flows(np.zeros((1, 1)))
     assert plus.tolist() == minus.tolist() == phi.tolist() == [0.0]
