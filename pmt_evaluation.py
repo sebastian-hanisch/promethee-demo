@@ -316,7 +316,7 @@ def verdict_dial(rows: list[dict]) -> tuple[str, str]:
     s_g = _row(rows, decider="guete_linear", m=m, method="summe")["hit"]
     u_r = _row(rows, decider="roh_linear", m=m, method="usual")["hit"]
     s_r = _row(rows, decider="roh_linear", m=m, method="summe")["hit"]
-    return "warning", (f"Bei {m} Kriterien trifft das Zählen (gewöhnliche Funktion) Platz 1 eines Entscheiders, der den Rang im Kriterium bewertet, in {de(100 * u_g, 0)} % der Fälle "
+    return "warning", (f"Bei {m} Kriterien trifft das Zählen (gewöhnliche Funktion) Platz 1 eines Entscheiders, der linear im Rang im Kriterium bewertet, in {de(100 * u_g, 0)} % der Fälle "
                        f"(Summe {de(100 * s_g, 0)} %), eines Entscheiders in den Rohwerten in {de(100 * u_r, 0)} % (Summe {de(100 * s_r, 0)} %). Keine Funktion gewinnt in beiden Welten; "
                        "die Wahl der Funktion ist eine Annahme über den Entscheider.")
 
@@ -337,6 +337,6 @@ def verdict_dependence(add: list[dict], floor: list[dict], stab: list[dict]) -> 
     st_u = _row(stab, sigma=top, method="usual")["stay"]
     st_s = _row(stab, sigma=top, method="Summe")["stay"]
     return "warning", (f"Kommt eine Alternative dazu, kippt bei der gewöhnlichen Funktion in {de(100 * u['any_flip'], 0)} % der Matrizen mindestens ein Paar der alten (Summe: {de(100 * s['any_flip'], 0)} %), "
-                       f"und Platz 1 wechselt in {de(100 * u['top_changes'], 1)} % (Summe: {de(100 * s['top_changes'], 1)} %). Ohne Veto wählt PROMETHEE bei einer Untergrenze in "
-                       f"{de(100 * min(fl), 0)} bis {de(100 * max(fl), 0)} % der Fälle Unzulässiges. Gegen Gewichtsstörung (σ = {de(top, 1)}) ist Platz 1 gleich stabil "
+                       f"im Mittel {de(100 * u['flipped_pairs'], 1)} % der Paare (Summe: {de(100 * s['flipped_pairs'], 1)} %), und Platz 1 wechselt in {de(100 * u['top_changes'], 1)} % (Summe: {de(100 * s['top_changes'], 1)} %). Ohne Veto wählt PROMETHEE bei einer Untergrenze in "
+                       f"{de(100 * min(fl), 0)} bis {de(100 * max(fl), 0)} % der Fälle Unzulässiges. Gegen Gewichtsstörung (σ = {de(top, 1)}) zeigt sich bei Platz 1 kein belastbarer Unterschied "
                        f"({de(100 * st_u, 0)} % gegen {de(100 * st_s, 0)} %).")

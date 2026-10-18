@@ -222,7 +222,7 @@ st.markdown("---")
 # --- Experimente ---------------------------------------------------------------------------------------------------------------------------
 
 st.subheader("🔬 Die vier Experimente")
-st.caption("200 feste Matrizen (SWEEP_SEEDS), n = 20, Min-Max, wahre Gewichte, unabhängig von den Reglern. Die Experimente rechnen zusammen rund 5 Sekunden und starten erst auf Klick.")
+st.caption("200 feste Matrizen (SWEEP_SEEDS), n = 20, Min-Max, wahre Gewichte, unabhängig von den Reglern. Die Experimente rechnen zusammen rund 10 Sekunden und starten erst auf Klick.")
 if st.button("▶ Experimente rechnen", key="exp_start"):
     st.session_state["exp_rows"] = _experiments()
 exp = st.session_state.get("exp_rows")
@@ -267,7 +267,7 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Die Güte-Entscheider bewerten den Rang** (Quantil im Kriterium) | Dass Zählen dort gewinnt, folgt aus der Konstruktion: Die Borda-Zählung summiert Ränge. Für einen Entscheider, der Größen bewertet, kehrt es sich um (Experiment 2). | – |
+| **Die Güte-Entscheider bewerten den Rang** (Quantil im Kriterium) | Dass Zählen dort gewinnen kann, ist plausibel: Die Borda-Zählung summiert Ränge; gemessen ist es nur für Güte/linear bei 5 Kriterien. Für einen Entscheider, der Größen bewertet, kehrt es sich um (Experiment 2). | – |
 | **Einheitliche Schwellen** | Echte Anwendungen setzen q, p und s je Kriterium und mischen die Funktionstypen; hier ist es ein Anteil der Spannweite für alle. | – |
 | **Die Gewichte sind bekannt** | In der Demo sind es die wahren Gewichte des Entscheiders; wie man sie erhebt, steht in den Vorgängern. | Gewichte erheben, AHP |
 | **Ein Verfahren ohne Veto** | PROMETHEE kennt keine Untergrenze und kein Veto; unzulässige Alternativen werden gewählt (Experiment 4). Absolute Anforderungen sind Profile. | Zuordnung statt Rangfolge |

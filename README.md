@@ -20,17 +20,18 @@ Entscheider passt, und was kostet „statt Zyklen“?
 
 - **Die Brücke zur Turnier-Linie ist eine Identität, keine Analogie.** Mit der gewöhnlichen Funktion ist der Nettofluss die gewichtete Borda-Zählung und die gewichtete Summe der
   Perzentil-Ränge (Φ = 2 · Perzentil-Summe − 1); Copeland nur als Spezialfall. Mit der V-Form und p = Spannweite ist er die gewichtete Summe: Φ = (n · Summe − Σ Summe)/(n − 1).
-- **„PROMETHEE ist besser als die Summe“ lässt sich nicht sagen.** Bei einem Entscheider, der den Rang im Kriterium bewertet (Güte), gewinnt das Zählen (5 Kriterien: 82,5 % gegen 67,0 %);
-  bei einem Entscheider in den Rohwerten das Summieren (96,5 % gegen 64,5 %). Dass Zählen in der Güte-Welt gewinnt, folgt aus der Konstruktion: Die Güte ist ein Quantil.
+- **„PROMETHEE ist besser als die Summe“ lässt sich nicht sagen.** Bei einem Entscheider, der linear im Rang im Kriterium bewertet (Güte/linear), gewinnt bei 5 Kriterien das Zählen (82,5 % gegen 67,0 %),
+  bei 3 oder 8 Kriterien und bei konkavem oder Cobb-Douglas-Nutzen nicht erkennbar; bei einem Entscheider in den Rohwerten gewinnt in allen gemessenen Fällen das Summieren (96,5 % gegen 64,5 %).
+  Dass Zählen in der Güte-Welt gewinnen kann, ist plausibel, weil die Güte ein Quantil ist; gemessen ist es nur für Güte/linear bei 5 Kriterien.
 - **„Statt Zyklen“ ist ein Austausch.** PROMETHEE I hat nie einen Zyklus (Eigenschaft der Definition, in jeder Zelle 0,0 %) und 0,1 bis 14,5 % unvergleichbare Paare; ELECTRE I mit c\* = 0,6
-  hat auf denselben Matrizen in 38,5 % einen Zyklus und 20,4 % unvergleichbare Paare. Der Preis: Die Ordnung hängt stärker von den anderen Alternativen ab.
+  hat auf denselben Matrizen in 38,5 % einen Zyklus und 20,4 % unvergleichbare Paare. Dafür hängt bei zählenden Funktionen die Ordnung stärker von den anderen Alternativen ab als bei der Summe.
 - **Die Vorschau auf die Rangumkehr ist deutlich:** Kommt eine Alternative dazu, kippt bei der gewöhnlichen Funktion in 89,0 % der Matrizen mindestens ein Paar der alten (Summe: 13,5 %),
-  und Platz 1 wechselt in 5,0 % (Summe: 0,5 %). Die V-Form über die ganze Spannweite verhält sich wie die Summe. Das Protokoll gehört in ein eigenes Stück.
+  im Mittel 1,13 % der Paare (Summe: 0,20 %), und Platz 1 wechselt in 5,0 % (Summe: 0,5 %). „Mindestens ein Paar“ wächst mit der Paarzahl und sagt wenig über das Ausmaß. Die V-Form über die ganze Spannweite verhält sich wie die Summe. Das Protokoll gehört in ein eigenes Stück.
 - **Kein Veto:** Bei einer Untergrenze wählt PROMETHEE in 12,5 bis 18,0 % der Fälle eine unzulässige Alternative (Summe: 11,0 %).
 - **Die Stabilität gegen Gewichtsstörung ist nicht besser.** Die gewöhnliche Funktion ist um 1,5 bis 1,9 Punkte weniger stabil als die Summe; V-Form 0,5 liegt gleichauf. Kein belastbarer
   Unterschied bei 200 Matrizen.
 - **Die Stabilitätszahlen weichen von der Phase 0 ab,** weil die Demo die Störung mit dem SplitMix64-Strom zieht (die Phase 0 rechnete mit `numpy.default_rng`); die Richtung ist dieselbe.
-- **Die Experimente starten auf Klick** (rund 5 Sekunden), nicht beim Laden.
+- **Die Experimente starten auf Klick** (rund 10 Sekunden), nicht beim Laden.
 
 ## Modell
 
@@ -62,7 +63,7 @@ sind nicht belastbar und stehen nicht als Aussage.**
 | Wie oft wählen zwei Funktionen denselben Platz 1? (5 Kriterien, Güte/linear) | gewöhnlich gegen V (p = 1,0): 64,5 % (τ 0,82); V 0,25 gegen 0,5: 90,0 %; 0,5 gegen 1,0: 90,0 %; 0,25 gegen 1,0: 85,5 %; linear gegen V 0,5: 95,5 %; gewöhnlich gegen U-Form: 69,5 %; gewöhnlich gegen Summe: 64,5 %. | `test_agreement_between_functions` |
 | Platz 1 getroffen, 5 Kriterien (Güte/linear, konkav, Cobb-Douglas, Rohwerte) | **Summe 67,0 / 72,5 / 69,0 / 96,5 %; gewöhnlich 82,5 / 76,0 / 69,5 / 64,5 %**; V 0,25: 77,0 / 79,0 / 74,5 / 85,5 %; V 0,5: 69,5 / 75,0 / 72,5 / 91,0 %; V 1,0 = Summe; linear (q 0,05, p 0,5) 66,0 / 71,0 / 70,0 / 90,5 %; Gauß (s 0,25) 65,5 / 71,5 / 70,0 / 92,5 %. | `test_first_place_for_every_function` |
 | Dasselbe bei 8 Kriterien | Summe 78,5 / 78,0 / 67,5 / 93,0 %; gewöhnlich 82,5 / 76,0 / 66,0 / 67,0 %. Rohwerte, 3 Kriterien: gewöhnlich 75,5 %, Summe 94,0 %. | `test_first_place_for_every_function` |
-| Wer gewinnt in welcher Welt? (5 Kriterien) | Zählen in der Güte-Welt +15,5 Punkte gegenüber der Summe, Summieren in der Rohwert-Welt +32,0 Punkte; in der Rohwert-Welt steigt die V-Form monoton von gewöhnlich über p 0,25 und 0,5 zur Summe. | `test_counting_wins_in_the_rank_world…`, `test_the_v_shape_moves_monotonically…` |
+| Wer gewinnt in welcher Welt? (5 Kriterien) | Zählen in der Güte-Welt (Güte/linear) +15,5 Punkte gegenüber der Summe, Summieren in der Rohwert-Welt +32,0 Punkte (bei 3 und 8 Kriterien anders, siehe oben); in der Rohwert-Welt steigt die V-Form monoton von gewöhnlich über p 0,25 und 0,5 zur Summe. | `test_counting_wins_in_the_rank_world…`, `test_the_v_shape_moves_monotonically…` |
 | PROMETHEE I: Teilordnung (5 Kriterien; je Funktion) | strikt 85,5 bis 99,9 %, beidseitig 0,0 %, **unvergleichbar 0,1 / 10,0 / 12,5 / 12,2 / 8,5 / 10,9 / 14,5 / 12,8 %** (gewöhnlich, U, Stufen, linear, V 0,25, V 0,5, V 1,0, Gauß); Zyklus 0,0 %; Sieger von II nie übertroffen. Der Beste ist nicht übertroffen in 78,0 bis 86,5 %. | `test_partial_order_shares` |
 | ELECTRE I auf denselben Matrizen (c\* = 0,6, kein Veto) | strikt 79,6 %, unvergleichbar 20,4 %, **Zyklus 38,5 %**. | `test_electre_reference_on_the_same_matrices` |
 | Eine Alternative kommt dazu (n 20 → 21; 5 Kriterien): gekippte Paare / Matrizen mit gekipptem Paar / Platz 1 wechselt | Summe 0,20 / 13,5 / 0,5 %; **gewöhnlich 1,13 / 89,0 / 5,0 %**; V 0,5: 0,46 / 52,0 / 3,5 %; V 1,0 = Summe; linear: 0,45 / 48,0 / 2,5 %. | `test_adding_one_alternative` |
@@ -71,7 +72,7 @@ sind nicht belastbar und stehen nicht als Aussage.**
 
 ## Ehrliche Grenzen
 
-- **Die Güte-Entscheider bewerten den Rang.** Dass Zählen dort gewinnt, folgt aus der Konstruktion (Güte ist ein Quantil, die Borda-Zählung summiert Ränge). Die Aussage ist „Funktion und
+- **Die Güte-Entscheider bewerten den Rang.** Dass Zählen dort gewinnen kann, ist plausibel (Güte ist ein Quantil, die Borda-Zählung summiert Ränge); gemessen ist es nur für Güte/linear bei 5 Kriterien. Die Aussage ist „Funktion und
   Entscheider müssen zusammenpassen“, nicht „Zählen ist besser“.
 - **Einheitliche Schwellen.** Echte Anwendungen setzen q, p und s je Kriterium und mischen die Funktionstypen; hier ist es ein Anteil der Spannweite für alle.
 - **Eine Vorschau auf die Rangumkehr,** kein Protokoll: eine hinzugefügte Alternative mit zufälligen Werten; ob sie die Spannweite ändert, wird nicht getrennt.
